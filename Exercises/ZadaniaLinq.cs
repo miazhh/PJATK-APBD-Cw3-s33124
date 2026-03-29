@@ -16,7 +16,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie01_StudenciZWarszawy()
     {
-        throw Niezaimplementowano(nameof(Zadanie01_StudenciZWarszawy));
+        return DaneUczelni.Studenci.Where(e => e.Miasto == "Warsaw")
+            .Select(e => $"{e.NumerIndeksu} {e.Imie} {e.Nazwisko} {e.Miasto}");
     }
 
     /// <summary>
@@ -30,7 +31,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie02_AdresyEmailStudentow()
     {
-        throw Niezaimplementowano(nameof(Zadanie02_AdresyEmailStudentow));
+        
+        return DaneUczelni.Studenci.Select(e => e.Email);
     }
 
     /// <summary>
@@ -45,7 +47,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie03_StudenciPosortowani()
     {
-        throw Niezaimplementowano(nameof(Zadanie03_StudenciPosortowani));
+
+        return DaneUczelni.Studenci.OrderBy(e => e.Nazwisko).ThenBy(e => e.Imie).Select(e => $"{e.NumerIndeksu}, {e.Imie} {e.Nazwisko}");
     }
 
     /// <summary>
@@ -60,7 +63,7 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie04_PierwszyPrzedmiotAnalityczny()
     {
-        throw Niezaimplementowano(nameof(Zadanie04_PierwszyPrzedmiotAnalityczny));
+        return DaneUczelni.Przedmioty.Where(e => e.Kategoria == "Analytics").Select(e => $"{e.Nazwa} {e.DataStartu}").Take(1);
     }
 
     /// <summary>
@@ -77,7 +80,7 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie05_CzyIstniejeNieaktywneZapisanie()
     {
-        throw Niezaimplementowano(nameof(Zadanie05_CzyIstniejeNieaktywneZapisanie));
+        return [DaneUczelni.Zapisy.Any(e => !e.CzyAktywny) ? "True" : "False"];
     }
 
     /// <summary>
@@ -92,7 +95,9 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie06_CzyWszyscyProwadzacyMajaKatedre()
     {
-        throw Niezaimplementowano(nameof(Zadanie06_CzyWszyscyProwadzacyMajaKatedre));
+        bool wszyscyMajaKatedre = DaneUczelni.Prowadzacy.All(p => !string.IsNullOrWhiteSpace(p.Katedra));
+        return new List<string>
+            { wszyscyMajaKatedre ? "Tak, wszyscy mają katedrę." : "Nie, są prowadzący bez katedry." };
     }
 
     /// <summary>
